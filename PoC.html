@@ -14,9 +14,7 @@
 
     const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
     ws.onopen = function () {
-      updateStatus('WebSocket terhubung! Meminta flag...');
       setTimeout(() => {
-        log('Mengirim perintah /getFlag...');
         ws.send(JSON.stringify({ message: '/getFlag' }));
       }, 1000);
     };
