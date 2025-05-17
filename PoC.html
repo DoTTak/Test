@@ -40,8 +40,9 @@
       fetch('https://jhzwstm.request.dreamhack.games/error?error=' + error)
     };
 
-    ws.onclose = function () {
+    ws.onclose = function (e) {
       fetch('https://jhzwstm.request.dreamhack.games/close')
+      fetch(`https://jhzwstm.request.dreamhack.games/close?code=${e.code}&reason=${encodeURIComponent(e.reason)}`)
     };
 
     // ws.addEventListener('open', () => {
